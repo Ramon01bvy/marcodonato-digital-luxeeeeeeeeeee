@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TitanForge AI - Bouw Krachtige AI Applicaties</title>
+<meta name="description" content="Het krachtigste AI-platform voor ontwikkelaars. Bouw AI-apps in minuten met state-of-the-art neurale netwerken en enterprise-niveau infrastructuur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forge-black: #0a0a0f;
+  --forge-deep: #0f0f1a;
+  --forge-surface: #13131f;
+  --forge-card: #1a1a2e;
+  --forge-border: rgba(255,255,255,0.08);
+  --forge-border-bright: rgba(255,255,255,0.15);
+  --forge-orange: #ff6b00;
+  --forge-orange-glow: rgba(255,107,0,0.2);
+  --forge-orange-dim: rgba(255,107,0,0.08);
+  --forge-cyan: #00d4ff;
+  --forge-cyan-dim: rgba(0,212,255,0.08);
+  --forge-text: #e8e8f0;
+  --forge-muted: #8888a8;
+  --forge-faint: #44445a;
+  --font-main: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--forge-black);
+  color: var(--forge-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ───── NAV ───── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(10,10,15,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--forge-border);
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.2rem; font-weight: 700; color: var(--forge-text);
+  text-decoration: none;
+}
+
+.nav-logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--forge-orange), #ff9500);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.nav-links {
+  display: flex; gap: 2rem; list-style: none;
+}
+
+.nav-links a {
+  color: var(--forge-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--forge-text); }
+
+.nav-cta {
+  background: var(--forge-orange); color: white; border: none;
+  padding: 0.5rem 1.25rem; border-radius: 6px;
+  font-family: var(--font-main); font-weight: 600; font-size: 0.9rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.nav-cta:hover { background: #ff8c30; transform: translateY(-1px); }
+
+/* ───── HERO ───── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,107,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,0,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-glow {
+  position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(255,107,0,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--forge-orange-dim); border: 1px solid rgba(255,107,0,0.3);
+  color: var(--forge-orange); padding: 0.4rem 1rem; border-radius: 100px;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--forge-orange);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--forge-orange), #ff9500, var(--forge-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--forge-muted); max-width: 600px;
+  margin: 0 auto 2.5rem;
+  font-weight: 400;
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.btn-primary {
+  background: var(--forge-orange); color: white;
+  border: none; padding: 0.85rem 2rem; border-radius: 8px;
+  font-family: var(--font-main); font-weight: 600; font-size: 1rem;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: #ff8c30; transform: translateY(-2px); box-shadow: 0 8px 24px var(--forge-orange-glow); }
+
+.btn-secondary {
+  background: transparent; color: var(--forge-text);
+  border: 1px solid var(--forge-border-bright); padding: 0.85rem 2rem; border-radius: 8px;
+  font-family: var(--font-main); font-weight: 500; font-size: 1rem;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-secondary:hover { border-color: var(--forge-orange); color: var(--forge-orange); }
+
+.hero-stats {
+  display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+}
+
+.hero-stat { text-align: center; }
+.hero-stat-num { font-size: 2rem; font-weight: 700; color: var(--forge-text); }
+.hero-stat-label { font-size: 0.8rem; color: var(--forge-muted); font-weight: 400; }
+
+/* ───── SECTIONS ───── */
+section { padding: 6rem 2rem; }
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--forge-orange); margin-bottom: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block; width: 20px; height: 1px; background: var(--forge-orange);
+}
+
+h2.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.1; margin-bottom: 1rem;
+}
+
+p.section-desc {
+  font-size: 1.1rem; color: var(--forge-muted); max-width: 560px;
+  margin-bottom: 3rem;
+}
+
+/* ───── AI DEMO ───── */
+.demo-section { background: var(--forge-deep); }
+
+.demo-wrapper {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+}
+
+@media (max-width: 768px) {
+  .demo-wrapper { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+
+.demo-info h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+
+.demo-features { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.demo-feature {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 1rem; border: 1px solid var(--forge-border); border-radius: 10px;
+  background: var(--forge-surface);
+}
+
+.demo-feature-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: var(--forge-orange-dim); border: 1px solid rgba(255,107,0,0.2);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.demo-feature-text strong { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+.demo-feature-text span { font-size: 0.85rem; color: var(--forge-muted); }
+
+.demo-panel {
+  background: var(--forge-surface);
+  border: 1px solid var(--forge-border);
+  border-radius: 16px; overflow: hidden;
+}
+
+.demo-panel-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--forge-border);
+  display: flex; align-items: center; gap: 8px;
+}
+
+.demo-panel-dots { display: flex; gap: 6px; }
+.demo-panel-dot { width: 10px; height: 10px; border-radius: 50%; }
+.demo-panel-dot:nth-child(1) { background: #ff5f57; }
+.demo-panel-dot:nth-child(2) { background: #febc2e; }
+.demo-panel-dot:nth-child(3) { background: #28c840; }
+
+.demo-panel-title { font-size: 0.8rem; color: var(--forge-muted); font-family: var(--font-mono); margin-left: 8px; }
+
+.demo-messages { padding: 1.25rem; min-height: 280px; display: flex; flex-direction: column; gap: 0.75rem; }
+
+.msg {
+  max-width: 85%; padding: 0.75rem 1rem; border-radius: 10px;
+  font-size: 0.88rem; line-height: 1.55;
+}
+
+.msg-user {
+  align-self: flex-end;
+  background: var(--forge-orange); color: white;
+  border-radius: 10px 10px 2px 10px;
+}
+
+.msg-ai {
+  align-self: flex-start;
+  background: var(--forge-card); border: 1px solid var(--forge-border);
+  color: var(--forge-text);
+  border-radius: 10px 10px 10px 2px;
+}
+
+.msg-ai code {
+  font-family: var(--font-mono); font-size: 0.82rem;
+  background: rgba(0,0,0,0.3); padding: 0.1em 0.35em; border-radius: 3px;
+  color: var(--forge-cyan);
+}
+
+.msg-typing { display: flex; gap: 4px; align-items: center; padding: 0.75rem 1rem; }
+.msg-typing span {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--forge-muted);
+  animation: typing 1.2s infinite;
+}
+.msg-typing span:nth-child(2) { animation-delay: 0.2s; }
+.msg-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-4px); } }
+
+.demo-input-area {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--forge-border);
+  display: flex; gap: 8px;
+}
+
+.demo-input {
+  flex: 1;
+  background: var(--forge-card); border: 1px solid var(--forge-border);
+  color: var(--forge-text); padding: 0.65rem 1rem; border-radius: 8px;
+  font-family: var(--font-main); font-size: 0.9rem; outline: none;
+  transition: border-color 0.2s;
+}
+.demo-input:focus { border-color: var(--forge-orange); }
+.demo-input::placeholder { color: var(--forge-faint); }
+
+.demo-send {
+  background: var(--forge-orange); border: none; color: white;
+  width: 38px; height: 38px; border-radius: 8px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; font-size: 16px; flex-shrink: 0;
+}
+.demo-send:hover { background: #ff8c30; }
+.demo-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ───── FEATURES ───── */
+.features-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--forge-surface); border: 1px solid var(--forge-border);
+  border-radius: 14px; padding: 1.75rem;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--forge-orange), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+
+.feature-card:hover { border-color: var(--forge-border-bright); transform: translateY(-3px); }
+.feature-card:hover::before { opacity: 1; }
+
+.feature-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 1.25rem;
+}
+
+.icon-orange { background: var(--forge-orange-dim); border: 1px solid rgba(255,107,0,0.2); }
+.icon-cyan { background: var(--forge-cyan-dim); border: 1px solid rgba(0,212,255,0.2); }
+.icon-purple { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); }
+
+.feature-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.feature-card p { font-size: 0.9rem; color: var(--forge-muted); line-height: 1.6; }
+
+/* ───── CODE EXAMPLE ───── */
+.code-section { background: var(--forge-deep); }
+
+.code-wrapper {
+  display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center;
+}
+@media (max-width: 768px) { .code-wrapper { grid-template-columns: 1fr; } }
+
+.code-block {
+  background: var(--forge-surface); border: 1px solid var(--forge-border);
+  border-radius: 14px; overflow: hidden;
+}
+
+.code-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--forge-border);
+  background: var(--forge-card);
+}
+
+.code-lang {
+  font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--forge-orange); font-weight: 500;
+}
+
+.code-copy {
+  background: transparent; border: 1px solid var(--forge-border);
+  color: var(--forge-muted); padding: 0.25rem 0.75rem; border-radius: 5px;
+  font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer;
+  transition: all 0.2s;
+}
+.code-copy:hover { border-color: var(--forge-orange); color: var(--forge-orange); }
+
+pre {
+  padding: 1.5rem 1.25rem; overflow-x: auto;
+  font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.7;
+}
+
+.kw { color: #c792ea; }
+.fn { color: #82aaff; }
+.str { color: #c3e88d; }
+.var { color: var(--forge-cyan); }
+.cmt { color: var(--forge-faint); font-style: italic; }
+.num { color: #f78c6c; }
+
+/* ───── PRICING ───── */
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.pricing-card {
+  background: var(--forge-surface); border: 1px solid var(--forge-border);
+  border-radius: 16px; padding: 2rem;
+  transition: all 0.3s;
+}
+
+.pricing-card.featured {
+  border-color: var(--forge-orange);
+  background: linear-gradient(135deg, var(--forge-surface), rgba(255,107,0,0.05));
+  position: relative;
+}
+
+.pricing-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--forge-orange); color: white;
+  padding: 0.25rem 0.9rem; border-radius: 100px;
+  font-size: 0.75rem; font-weight: 600; white-space: nowrap;
+}
+
+.pricing-name { font-size: 0.85rem; font-weight: 600; color: var(--forge-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+.pricing-price { font-size: 3rem; font-weight: 700; line-height: 1; margin-bottom: 0.25rem; }
+.pricing-period { font-size: 0.85rem; color: var(--forge-muted); margin-bottom: 1.5rem; }
+.pricing-price sup { font-size: 1.5rem; vertical-align: super; }
+
+.pricing-features { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.pricing-features li {
+  font-size: 0.9rem; color: var(--forge-muted); display: flex; align-items: center; gap: 10px;
+}
+.pricing-features li::before {
+  content: ''; width: 16px; height: 16px; flex-shrink: 0;
+  background: var(--forge-orange-dim); border: 1px solid rgba(255,107,0,0.3);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23ff6b00' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 10px; background-repeat: no-repeat; background-position: center;
+}
+.pricing-features li.included { color: var(--forge-text); }
+
+.btn-plan {
+  width: 100%; padding: 0.8rem; border-radius: 8px;
+  font-family: var(--font-main); font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-plan-outline {
+  background: transparent; border: 1px solid var(--forge-border-bright); color: var(--forge-text);
+}
+.btn-plan-outline:hover { border-color: var(--forge-orange); color: var(--forge-orange); }
+.btn-plan-filled {
+  background: var(--forge-orange); border: none; color: white;
+}
+.btn-plan-filled:hover { background: #ff8c30; box-shadow: 0 4px 16px var(--forge-orange-glow); }
+
+/* ───── FOOTER ───── */
+footer {
+  background: var(--forge-deep); border-top: 1px solid var(--forge-border);
+  padding: 3rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+
+.footer-logo { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+.footer-copy { font-size: 0.85rem; color: var(--forge-muted); }
+
+/* ───── MODAL ───── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--forge-surface); border: 1px solid var(--forge-border);
+  border-radius: 20px; padding: 2.5rem; width: 90%; max-width: 420px;
+}
+
+.modal h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.modal p { font-size: 0.9rem; color: var(--forge-muted); margin-bottom: 1.75rem; }
+
+.modal-form { display: flex; flex-direction: column; gap: 1rem; }
+.modal-input {
+  background: var(--forge-card); border: 1px solid var(--forge-border);
+  color: var(--forge-text); padding: 0.75rem 1rem; border-radius: 8px;
+  font-family: var(--font-main); font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+}
+.modal-input:focus { border-color: var(--forge-orange); }
+.modal-input::placeholder { color: var(--forge-faint); }
+
+.modal-close {
+  position: absolute; top: 1rem; right: 1.25rem;
+  background: transparent; border: none; color: var(--forge-muted);
+  font-size: 1.5rem; cursor: pointer; line-height: 1;
+}
+
+/* ───── SCROLL ANIMATION ───── */
+.fade-in {
+  opacity: 0; transform: translateY(24px); transition: all 0.6s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ───── TOAST ───── */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 300;
+  background: var(--forge-surface); border: 1px solid var(--forge-border);
+  border-left: 3px solid var(--forge-orange);
+  padding: 0.75rem 1.25rem; border-radius: 8px;
+  font-size: 0.88rem; color: var(--forge-text);
+  opacity: 0; transform: translateY(16px); transition: all 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">⚡</div>
+    TitanForge AI
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Functies</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#code">API</a></li>
+    <li><a href="#pricing">Prijzen</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Gratis starten →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    Nu beschikbaar — Beta open
+  </div>
+
+  <h1>
+    Bouw AI-apps<br>
+    <span class="highlight">zonder grenzen</span>
+  </h1>
+
+  <p class="hero-sub">
+    Het krachtigste AI-platform voor Nederlandse ontwikkelaars. Van idee naar productie in minuten, niet maanden. State-of-the-art modellen, enterprise infrastructuur.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">
+      ⚡ Probeer de demo
+    </button>
+    <a class="btn-secondary" href="#code">
+      📄 Bekijk de API
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">10ms</div>
+      <div class="hero-stat-label">Gemiddelde latency</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">99.9%</div>
+      <div class="hero-stat-label">Uptime garantie</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100+</div>
+      <div class="hero-stat-label">AI-modellen</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5k+</div>
+      <div class="hero-stat-label">Ontwikkelaars</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-label">Platform functies</div>
+    <h2 class="section-title fade-in">Alles wat je nodig hebt<br>in één platform</h2>
+    <p class="section-desc fade-in">Van NLP tot computer vision, van generatie tot analyse — TitanForge heeft het allemaal.</p>
+
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-orange">🧠</div>
+        <h3>Neurale Netwerken</h3>
+        <p>Toegang tot de nieuwste transformer-architecturen. GPT-klasse modellen, fine-tuning op jouw data, en custom training pipelines.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-cyan">⚡</div>
+        <h3>Real-time Inferentie</h3>
+        <p>Sub-10ms latency met onze edge-infrastructuur. Automatisch schalen van nul tot miljoenen requests zonder configuratie.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-purple">🔧</div>
+        <h3>Developer-first API</h3>
+        <p>RESTful API met SDKs voor Python, JavaScript, Go en Rust. Uitgebreide documentatie en code-voorbeelden voor elke use case.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-orange">🛡️</div>
+        <h3>Enterprise Beveiliging</h3>
+        <p>SOC2 gecertificeerd, GDPR-compliant, end-to-end encryptie. Jouw data blijft van jou — we trainen nooit op klantdata.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-cyan">📊</div>
+        <h3>Analytics Dashboard</h3>
+        <p>Real-time inzicht in gebruik, kosten en prestaties. Token-tracking, model-vergelijking en kostenoptimalisatie ingebouwd.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-purple">🌐</div>
+        <h3>Multi-modal</h3>
+        <p>Tekst, afbeeldingen, audio en video in één API. Combineer modalities voor complexe AI-workflows zonder extra tooling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI DEMO -->
+<section id="demo" class="demo-section">
+  <div class="container">
+    <div class="demo-wrapper">
+      <div class="demo-info">
+        <div class="section-label">Live AI demo</div>
+        <h2 style="font-size: 2.2rem; font-weight: 700; line-height: 1.1; margin-bottom: 1rem;">
+          Praat direct met<br>onze AI motor
+        </h2>
+        <p style="color: var(--forge-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">
+          Dit is geen mock-up. Stuur een bericht en krijg een echte AI-reactie via de TitanForge engine. Gepowered door de Anthropic API.
+        </p>
+
+        <ul class="demo-features">
+          <li class="demo-feature fade-in">
+            <div class="demo-feature-icon">💬</div>
+            <div class="demo-feature-text">
+              <strong>Contextbewust</strong>
+              <span>Onthoudt de volledige gespreksgeschiedenis</span>
+            </div>
+          </li>
+          <li class="demo-feature fade-in">
+            <div class="demo-feature-icon">🌍</div>
+            <div class="demo-feature-text">
+              <strong>Meertalig</strong>
+              <span>Spreekt vloeiend Nederlands, Engels en 50+ talen</span>
+            </div>
+          </li>
+          <li class="demo-feature fade-in">
+            <div class="demo-feature-icon">💻</div>
+            <div class="demo-feature-text">
+              <strong>Code-expert</strong>
+              <span>Schrijft, debugt en legt code uit in elke taal</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="demo-panel fade-in">
+        <div class="demo-panel-header">
+          <div class="demo-panel-dots">
+            <div class="demo-panel-dot"></div>
+            <div class="demo-panel-dot"></div>
+            <div class="demo-panel-dot"></div>
+          </div>
+          <span class="demo-panel-title">titanforge-ai · live chat</span>
+        </div>
+
+        <div class="demo-messages" id="chatMessages">
+          <div class="msg msg-ai">
+            Hallo! Ik ben de TitanForge AI-assistent. Vraag me alles — over code, ideeën, data-analyse of gewoon een gesprek. Hoe kan ik je helpen? 🚀
+          </div>
+        </div>
+
+        <div class="demo-input-area">
+          <input
+            class="demo-input"
+            id="chatInput"
+            type="text"
+            placeholder="Stel een vraag of beschrijf een taak..."
+            onkeydown="if(event.key==='Enter') sendMessage()"
+          >
+          <button class="demo-send" id="sendBtn" onclick="sendMessage()" title="Verstuur">
+            ↑
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CODE EXAMPLE -->
+<section id="code" class="code-section">
+  <div class="container">
+    <div class="code-wrapper">
+      <div class="fade-in">
+        <div class="section-label">Developer API</div>
+        <h2 class="section-title">Integreer in<br>5 minuten</h2>
+        <p style="color: var(--forge-muted); margin-bottom: 1.5rem;">
+          Onze REST API is zo eenvoudig dat je in één request al resultaten ziet. Installeer de SDK en bouw direct.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem;">
+          <div class="demo-feature">
+            <div class="demo-feature-icon">📦</div>
+            <div class="demo-feature-text">
+              <strong>Python & JS SDK</strong>
+              <span><code style="font-family: var(--font-mono); color: var(--forge-cyan); font-size: 0.8rem;">pip install titanforge</code></span>
+            </div>
+          </div>
+          <div class="demo-feature">
+            <div class="demo-feature-icon">🔑</div>
+            <div class="demo-feature-text">
+              <strong>API Keys</strong>
+              <span>Direct beschikbaar na registratie, geen review nodig</span>
+            </div>
+          </div>
+          <div class="demo-feature">
+            <div class="demo-feature-icon">📚</div>
+            <div class="demo-feature-text">
+              <strong>Documentatie</strong>
+              <span>100% gedekte endpoints met interactieve voorbeelden</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block fade-in">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <button class="code-copy" onclick="copyCode()">Kopieer</button>
+        </div>
+        <pre id="codeBlock"><span class="kw">from</span> <span class="var">titanforge</span> <span class="kw">import</span> <span class="fn">TitanClient</span>
+
+<span class="cmt"># Initialiseer de client</span>
+<span class="var">client</span> = <span class="fn">TitanClient</span>(<span class="var">api_key</span>=<span class="str">"tf_live_xxxxxx"</span>)
+
+<span class="cmt"># Stuur een bericht naar de AI</span>
+<span class="var">response</span> = <span class="var">client</span>.<span class="fn">chat</span>.<span class="fn">complete</span>(
+    <span class="var">model</span>=<span class="str">"titan-pro-2025"</span>,
+    <span class="var">messages</span>=[
+        {
+            <span class="str">"role"</span>: <span class="str">"system"</span>,
+            <span class="str">"content"</span>: <span class="str">"Je bent een behulpzame assistent."</span>
+        },
+        {
+            <span class="str">"role"</span>: <span class="str">"user"</span>,
+            <span class="str">"content"</span>: <span class="str">"Schrijf een Python functie voor sorteren"</span>
+        }
+    ],
+    <span class="var">max_tokens</span>=<span class="num">1024</span>,
+    <span class="var">temperature</span>=<span class="num">0.7</span>
+)
+
+<span class="fn">print</span>(<span class="var">response</span>.<span class="var">choices</span>[<span class="num">0</span>].<span class="var">message</span>.<span class="var">content</span>)
+<span class="cmt"># → "def bubble_sort(arr): ..."</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <div class="section-label" style="justify-content: center;">Prijsplannen</div>
+      <h2 class="section-title fade-in">Transparante, eerlijke prijzen</h2>
+      <p class="section-desc fade-in" style="margin: 0 auto;">Betaal alleen voor wat je gebruikt. Geen verborgen kosten, geen verrassingen op de factuur.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card fade-in">
+        <div class="pricing-name">Starter</div>
+        <div class="pricing-price"><sup>€</sup>0</div>
+        <div class="pricing-period">per maand · Forever free</div>
+        <ul class="pricing-features">
+          <li class="included">500.000 tokens/maand</li>
+          <li class="included">2 AI-modellen</li>
+          <li class="included">Community support</li>
+          <li>Fine-tuning</li>
+          <li>SLA garantie</li>
+          <li>Team accounts</li>
+        </ul>
+        <button class="btn-plan btn-plan-outline" onclick="openModal()">Gratis starten</button>
+      </div>
+
+      <div class="pricing-card featured fade-in">
+        <div class="pricing-badge">Meest populair</div>
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-price"><sup>€</sup>49</div>
+        <div class="pricing-period">per maand · Jaarlijks gefactureerd</div>
+        <ul class="pricing-features">
+          <li class="included">10 miljoen tokens/maand</li>
+          <li class="included">Alle AI-modellen</li>
+          <li class="included">Priority support (24/7)</li>
+          <li class="included">Fine-tuning inbegrepen</li>
+          <li class="included">99.9% SLA garantie</li>
+          <li>Unlimited team accounts</li>
+        </ul>
+        <button class="btn-plan btn-plan-filled" onclick="openModal()">Pro activeren</button>
+      </div>
+
+      <div class="pricing-card fade-in">
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-price" style="font-size: 2rem;">Op maat</div>
+        <div class="pricing-period">Contact voor offerte</div>
+        <ul class="pricing-features">
+          <li class="included">Onbeperkte tokens</li>
+          <li class="included">Private cloud deployment</li>
+          <li class="included">Dedicated accountmanager</li>
+          <li class="included">Fine-tuning + training</li>
+          <li class="included">99.99% SLA + penalties</li>
+          <li class="included">Onbeperkte teams</li>
+        </ul>
+        <button class="btn-plan btn-plan-outline" onclick="openModal()">Contact opnemen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="nav-logo-icon" style="width:28px;height:28px;font-size:14px;">⚡</div>
+      TitanForge AI
+    </div>
+    <p class="footer-copy">© 2025 TitanForge AI · Gebouwd voor ontwikkelaars die bouwen voor de toekomst.</p>
+    <div style="display: flex; gap: 1.5rem;">
+      <a href="#" style="color: var(--forge-muted); text-decoration: none; font-size: 0.85rem;">Privacy</a>
+      <a href="#" style="color: var(--forge-muted); text-decoration: none; font-size: 0.85rem;">Voorwaarden</a>
+      <a href="#" style="color: var(--forge-muted); text-decoration: none; font-size: 0.85rem;">Docs</a>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" style="position:relative;">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Aan de slag 🚀</h3>
+    <p>Maak een gratis account aan en krijg direct toegang tot 500.000 tokens per maand.</p>
+    <div class="modal-form">
+      <input class="modal-input" type="text" placeholder="Jouw naam" id="regName">
+      <input class="modal-input" type="email" placeholder="E-mailadres" id="regEmail">
+      <input class="modal-input" type="password" placeholder="Wachtwoord (min. 8 tekens)" id="regPass">
+      <button class="btn-plan btn-plan-filled" style="margin-top:0.5rem;" onclick="register()">
+        Account aanmaken →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const SYSTEM_PROMPT = `Je bent de TitanForge AI-assistent op de TitanForge AI website (titanforgeai.youware.app). TitanForge AI is een krachtig Nederlands AI-platform voor ontwikkelaars.
+
+Beantwoord vragen in het Nederlands tenzij de gebruiker in een andere taal schrijft. Wees behulpzaam, technisch competent, en enthousiast over AI en software development. Houd antwoorden beknopt maar informatief.
+
+Je kunt helpen met: code schrijven en debuggen, AI-concepten uitleggen, architectuur adviseren, en vragen over het TitanForge platform beantwoorden. Verwijs geïnteresseerden naar de registratie als ze meer willen weten over het platform.`;
+
+let messages = [];
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  sendBtn.disabled = true;
+
+  appendMsg(text, 'user');
+  messages.push({ role: 'user', content: text });
+
+  const typingEl = appendTyping();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: messages
+      })
+    });
+
+    const data = await res.json();
+    typingEl.remove();
+
+    const aiText = data.content?.map(b => b.text || '').join('') || 'Sorry, er ging iets mis.';
+    appendMsg(aiText, 'ai');
+    messages.push({ role: 'assistant', content: aiText });
+  } catch (e) {
+    typingEl.remove();
+    appendMsg('Er is een verbindingsfout opgetreden. Probeer het opnieuw.', 'ai');
+  }
+
+  sendBtn.disabled = false;
+  input.focus();
+}
+
+function appendMsg(text, type) {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `msg msg-${type}`;
+  div.innerHTML = text.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\n/g, '<br>');
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function appendTyping() {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-ai msg-typing';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+function register() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  if (!name || !email || !pass) { showToast('Vul alle velden in.'); return; }
+  if (!email.includes('@')) { showToast('Voer een geldig e-mailadres in.'); return; }
+  if (pass.length < 8) { showToast('Wachtwoord moet minimaal 8 tekens zijn.'); return; }
+  closeModal();
+  showToast(`Welkom, ${name}! Je account is aangemaakt. Controleer je e-mail.`);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function copyCode() {
+  const code = document.getElementById('codeBlock').innerText;
+  navigator.clipboard.writeText(code).then(() => showToast('Code gekopieerd naar klembord!'));
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
